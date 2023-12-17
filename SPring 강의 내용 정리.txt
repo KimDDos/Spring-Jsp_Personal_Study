@@ -1,0 +1,14 @@
+[ Spring Framwork ]
+   기업을 대상으로 하는 개발이라는 말, 대규모 데이터 처리와 트랙잭션이 
+   동시에 여러 사용자로부터 행해지는 매우 큰 규모의 환경을 엔터프라이즈 환경이라 일컬음
+   기존의 방식은 클래스를 만들고, 멤버변수를 만들고 했다면 / 미리 다 만들어진 객체(bean)로 별도로 관리함
+   => 이걸 IOC (Inversion Of Control) (제어의 역전 기반의 Framework를 의미) 
+   => bin 이라는 객체에 담아서 Spring 컨테이너에 담아서 관리함 [해줄건 Dependency 로 붙여주기만 하면됨]
+   
+   Framwork  뼈대나 근간을 이루는 코드들의 묶음
+   특징 : DI(Dependency Input)를 통한 객체 간의 관계 구성 **제일 중요한 부분임**
+           AOP(Aspect-Oriented-Programming) 지원
+           편리한 MVC 구조 (뷰는 JSP 그대로, controller가 간편하게 바뀔 예정)
+           WAS의 종속적이지 않은 개발 환경
+
+   xml설정 방식(살짝 구식임), 어노테이션 설정, java 설정 방식
