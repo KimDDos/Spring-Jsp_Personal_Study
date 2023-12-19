@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 
 	@Inject
-	public BoardService bsv;
+	private BoardService bsv;
 	
 	@GetMapping("/register")
 	public void register() {}

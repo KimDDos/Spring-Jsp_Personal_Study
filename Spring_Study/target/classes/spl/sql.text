@@ -1,0 +1,34 @@
+-- database 생성
+create database springtest;
+
+-- users 생성
+create user 'springUser'@'localhost' identified by 'mysql'
+
+-- 권한 생성
+grant all privileges on springtest.*.* to 'springUser'@'localhost';
+
+-- 권한 설정 내용 메모리 반영
+flush privileges;
+
+-- board -- 
+create table board(
+bno int,
+title varchar(200),
+writer varchar(100),
+content text,
+isDel varchar(10) default 'N',
+ragdate datetime default now(),
+read_count int,
+primary key(bno));
+
+-- member -- 
+create table member(
+id varchar(100) not null,
+pw varchar(100) not null,
+name varchar(100),
+email varchar(100),
+home varchar(100),
+age int,
+regdate datetime default now(),
+last_login datetime default now(),
+primary key(id));

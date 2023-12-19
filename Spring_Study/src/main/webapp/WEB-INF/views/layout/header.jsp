@@ -28,7 +28,7 @@
           <a class="nav-link active" aria-current="page" href="/board/list">게시글 보러가기</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">회원가입</a>
+          <a class="nav-link active" aria-current="page" href="/member/register">회원가입</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">로그인</a>
