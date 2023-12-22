@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ddos.www.domain.BoardVO;
+import com.ddos.www.domain.PagingVO;
+import com.ddos.www.handler.PagingHandler;
 import com.ddos.www.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,8 +39,15 @@ public class BoardController {
 	}
 	
 	@GetMapping("/list")
-	public String list(Model m) {
-		m.addAttribute("list", bsv.getList());
+	public String list(Model m, PagingVO pgvo) {
+		log.info("list pgvo >>>> {}", pgvo);
+		m.addAttribute("list", bsv.getList(pgvo));
+		
+		// ph 객체 생성
+		int totalCount = bsv.getTotalCount(pgvo);
+		log.info("totalCount >>>> {}", totalCount);
+		m.addAttribute("ph", new PagingHandler(pgvo, totalCount));
+		m.addAttribute("totalCount", totalCount);
 		return "/board/list";
 	}
 	

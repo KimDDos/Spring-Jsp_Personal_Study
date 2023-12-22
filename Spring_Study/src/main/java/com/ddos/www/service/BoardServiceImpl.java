@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.ddos.www.domain.BoardVO;
+import com.ddos.www.domain.PagingVO;
 import com.ddos.www.repository.BoardDAO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +26,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(PagingVO pgvo) {
 		log.info("getlist check 1");
-		return bdao.selectList();
+		return bdao.selectList(pgvo);
 	}
 
 	@Override
@@ -46,6 +47,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int remove(int bno) {
 		return bdao.remove(bno);
+	}
+
+	@Override
+	public int getTotalCount(PagingVO pgvo) {
+		// TODO Auto-generated method stub
+		return bdao.total(pgvo);
 	}
 	
 }

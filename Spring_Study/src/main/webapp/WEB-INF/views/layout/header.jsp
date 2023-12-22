@@ -27,12 +27,22 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/board/list">게시글 보러가기</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/member/register">회원가입</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">로그인</a>
-        </li>
+        <c:if test="${ses.id eq null}">
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/member/register">회원가입</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/member/login">로그인</a>
+	        </li>
+        </c:if>
+        <c:if test="${ses.id ne null}">
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/member/modify">마이페이지</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link active" aria-current="page" href="/member/logout">로그아웃</a>
+	        </li>
+        </c:if>
       </ul>
     </div>
   </div>

@@ -45,6 +45,14 @@
 		</div>
 		<div class="row g-3 align-items-center">
 			<div class="col-auto">
+			  <label for="home" class="col-form-label">Home</label>
+			</div>
+			<div class="col-auto">
+			  <input type="text" id="home" name="home" class="form-control" aria-describedby="passwordHelpInline">
+			</div>
+		</div>
+		<div class="row g-3 align-items-center">
+			<div class="col-auto">
 			  <label for="age" class="col-form-label">Age</label>
 			</div>
 			<div class="col-auto">

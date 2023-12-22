@@ -1,6 +1,7 @@
 package com.ddos.www.service;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Inject
 	private MemberDAO mdao;
+	
+	@Inject
+	HttpServletRequest request;
 
 	@Inject 
 	BCryptPasswordEncoder passwordEncoder;
@@ -44,10 +48,46 @@ public class MemberServiceImpl implements MemberService{
 		
 		// 회원가입 진행
 		// password는 암호화하여 가입
-		/* String encodePw = passwordEncoder.encode(mvo.getPw()); */
-		/* mvo.setPw(encodePw); */
+		String encodePw = passwordEncoder.encode(mvo.getPw()); 
+		mvo.setPw(encodePw);
 		return mdao.register(mvo);
 		// 1 : 회원가입 성공 / 5 : 일치하는 아이디 / 6 : Id가 null / 7 : Pw가 null
+	}
+
+	@Override
+	public MemberVO isUser(MemberVO mvo) {
+		// 로그인 유저 확인
+		MemberVO tempMvo = mdao.getUser(mvo.getId());
+		
+		// 해당 아이디가 없을 경우
+		if(tempMvo == null) {
+			return null;
+		}
+		
+		// 해당 아이디가 있을 경우
+		if(passwordEncoder.matches(mvo.getPw(), tempMvo.getPw())) {
+			return tempMvo;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public void lastLogin(String id) {
+		mdao.lastLogin(id);
+	}
+
+	@Override
+	public int modify(MemberVO mvo) {
+		MemberVO sesMvo = (MemberVO)request.getSession().getAttribute("ses");
+		
+		if(mvo.getPw() == null || mvo.getPw() == "") {
+			mvo.setPw(sesMvo.getPw());
+		} else {
+			mvo.setPw(passwordEncoder.encode(mvo.getPw()));
+		}
+		
+		return mdao.mod(mvo);
 	}
 	
 }

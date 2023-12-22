@@ -13,4 +13,12 @@
 		values(#{id}, #{pw}, #{name}, #{email}, #{home}, #{age})
 	</insert>
 
+	<update id="lastLogin">
+		update member set last_login = now() where id=#{id}
+	</update>
+	
+	<update id="mod">
+		update member set pw=#{pw}, name=#{name}, email=#{email}, home=#{home}, age=#{age} where id=#{id}		
+	</update>
+
 </mapper>

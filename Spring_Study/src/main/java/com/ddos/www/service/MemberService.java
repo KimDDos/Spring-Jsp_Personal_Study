@@ -6,4 +6,10 @@ public interface MemberService {
 
 	int register(MemberVO mvo);
 
+	MemberVO isUser(MemberVO mvo);
+
+	void lastLogin(String id);
+
+	int modify(MemberVO mvo);
+
 }
