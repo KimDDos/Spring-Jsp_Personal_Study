@@ -5,6 +5,7 @@
 <jsp:include page="../layout/header.jsp"></jsp:include>
 
 <div class="container-md">
+	<h2> Board Detail Page </h2>
 	<h1 style="text-align: center;">Spring Board Detail Page</h1>
 	<div class="mb-3">
       <input type="hidden" name=bno value="${bvo.bno}">
@@ -27,6 +28,58 @@
 	<a href="/board/modify?bno=${bvo.bno}"><button type="button" class="btn btn-primary">Modify</button></a>
 	<a href="/board/remove?bno=${bvo.bno}"><button type="button" class="btn btn-danger">Delete</button></a>
 
+	<br>
+	<hr>
+	<br>
+
+	<!-- 댓글 등록 라인 -->
+	<h2>댓글 등록</h2>
+	<div class="input-group mb-3">
+		<span class="input-group-text" id="cmtWriter"> ${ses.id } </span>
+		<c:if test="${ses.id ne null}">
+		<input type="text" id="cmtText" class="form-control" aria-label="Amount (to the nearest dollar)"
+			placeholder="댓글을 입력 해주세요!">
+		<button class="btn btn-outline-secondary input-group-text" id="cmtAddBtn" type="button">Comment
+			<br>Registration</button>
+		</c:if>
+		<c:if test="${ses.id eq null}">
+		<input type="text" id="cmtText" class="form-control" aria-label="Amount (to the nearest dollar)"
+			placeholder="댓글을 작성하시려면 로그인을 해주세요!" disabled>
+		<button class="btn btn-outline-secondary input-group-text" id="cmtAddBtn" type="button" disabled>Comment
+			<br>Registration</button>
+		</c:if>
+	</div>
+	
+	<br>
+	<hr>
+	<br>
+	
+	<!-- 댓글 표시 라인 -->
+	<div class="accordion" id="accordionExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse"
+					data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+					cno, writer, reg_date
+				</button>
+			</h2>
+			<div id="collapseOne" class="accordion-collapse collapse show"
+				data-bs-parent="#accordionExample" style="display: flex;">
+				<div class="accordion-body">
+					<strong> Add Comment.... </strong>
+				</div>
+				<div class="btn-group btn-group-sm" role="group" aria-label="Default button group">
+					<button type="button" class="btn btn-outline-warning cmtModify">Modify</button>
+					<button type="button" class="btn btn-outline-danger cmtRemove">Remove</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
+<script type="text/javascript">
+	const bnoVal = `<c:out value="${bvo.bno}"/>`;
+</script>
+<script src="/resources/js/boardComment.js"></script>
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>
