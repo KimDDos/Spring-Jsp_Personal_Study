@@ -2,16 +2,17 @@ package com.ddos.www.service;
 
 import java.util.List;
 
+import com.ddos.www.domain.BoardDTO;
 import com.ddos.www.domain.BoardVO;
 import com.ddos.www.domain.PagingVO;
 
 public interface BoardService {
 
-	int register(BoardVO bvo);
+	int register(BoardDTO bdto);
 
 	List<BoardVO> getList(PagingVO pgvo);
 
-	BoardVO getDetail(int bno);
+	BoardDTO getDetail(int bno);
 
 	void modify(BoardVO bvo);
 

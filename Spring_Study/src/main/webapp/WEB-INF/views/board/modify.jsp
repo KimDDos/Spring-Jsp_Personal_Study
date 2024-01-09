@@ -28,7 +28,6 @@
 		<button type="submit" class="btn btn-primary">Modify</button>
 		<a href="/board/remove?bno=${bvo.bno}"><button type="button" class="btn btn-danger">Delete</button></a>
 	</form>
-
 </div>
 
 <jsp:include page="../layout/footer.jsp"></jsp:include>

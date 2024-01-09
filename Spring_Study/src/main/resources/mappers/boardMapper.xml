@@ -29,4 +29,10 @@
 		select count(bno) from board where isDel = 'N'
 	</select>
 	
+	<select id="selectBno" resultType="int">
+		select max(bno) from board
+		<!-- select bno from board order by bno desc limit 0 -->
+		<!-- 위 두개 구문을 사용해도 가능함 -->
+	</select>
+	
 </mapper>

@@ -1,5 +1,7 @@
 package com.ddos.www.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
@@ -8,10 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ddos.www.domain.BoardDTO;
 import com.ddos.www.domain.BoardVO;
+import com.ddos.www.domain.FileVO;
 import com.ddos.www.domain.PagingVO;
+import com.ddos.www.handler.FileHandler;
 import com.ddos.www.handler.PagingHandler;
 import com.ddos.www.service.BoardService;
 
@@ -25,14 +31,28 @@ public class BoardController {
 	@Inject
 	private BoardService bsv;
 	
+	@Inject
+	private FileHandler fhd;
+	
 	@GetMapping("/register")
 	public void register() {}
 	
 	@PostMapping("/register")
-	public String register(BoardVO bvo) {
+	public String register(BoardVO bvo, @RequestParam(name="files", required=false) MultipartFile[] files) {
 		log.info("register bvo check >>>> {}", bvo);
 		
-		int isOk = bsv.register(bvo);
+		List<FileVO> flist = null;
+		
+		if(files[0].getSize() > 0) {
+			flist = fhd.uploadFiles(files);
+			log.info(">>> flist >>> {}", flist);
+		} else {
+			log.info("file null");
+		}
+		
+		BoardDTO bdto = new BoardDTO(bvo, flist);
+		
+		int isOk = bsv.register(bdto);
 		log.info("register result >>> {}", isOk > 0 ? "Ok":"Fail");
 		
 		return "index";
@@ -54,7 +74,7 @@ public class BoardController {
 	@GetMapping({"/detail", "/modify"})
 	public void detail(Model m ,@RequestParam("bno") int bno) {
 		log.info("detail >>>> {}", bno);
-		m.addAttribute("bvo", bsv.getDetail(bno));
+		m.addAttribute("boardDTO", bsv.getDetail(bno));
 	}
 	
 	@PostMapping("/modify")
@@ -69,6 +89,7 @@ public class BoardController {
 	public String remove(@RequestParam("bno") int bno, RedirectAttributes re) {
 		log.info("remove bno >>>> {}", bno);
 		int isOk = bsv.remove(bno);
+		re.addFlashAttribute("msg_remove",isOk);
 		return "redirect:/board/list";
 	}
 	

@@ -1,5 +1,7 @@
 package com.ddos.www.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +21,24 @@ public class CommentServiceImpl implements CommentService{
 	@Override
 	public int post(CommentVO cvo) {
 		return cdao.insert(cvo);
+	}
+
+	@Override
+	public List<CommentVO> getList(int bno) {
+		// TODO Auto-generated method stub
+		return cdao.getList(bno);
+	}
+
+	@Override
+	public int delete(int cno) {
+		// TODO Auto-generated method stub
+		return cdao.deleteComment(cno);
+	}
+
+	@Override
+	public int modify(CommentVO cvo) {
+		// TODO Auto-generated method stub
+		return cdao.modify(cvo);
 	}
 	
 }
